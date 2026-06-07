@@ -1,0 +1,29 @@
+{
+  "name": "demo-website-automation",
+  "version": "1.0.0",
+  "description": "Playwright E2E test suite with TypeScript and POM",
+  "main": "index.js",
+  "scripts": {
+    "test:e2e": "playwright test tests/e2e",
+    "test:e2e:headed": "playwright test tests/e2e --headed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TestOpsHub/Demo-website-automation.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/TestOpsHub/Demo-website-automation/issues"
+  },
+  "homepage": "https://github.com/TestOpsHub/Demo-website-automation#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.60.0",
+    "@types/node": "^25.9.2"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2"
+  }
+}
