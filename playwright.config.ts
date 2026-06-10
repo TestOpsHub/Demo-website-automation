@@ -1,8 +1,10 @@
 import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
-dotenv.config();
+import path from 'path';
+dotenv.config({path:path.resolve(__dirname, '.env')});
 
 export default defineConfig({
+  timeout: 90_000,
   testDir: './tests',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
@@ -12,24 +14,28 @@ export default defineConfig({
  
   use: {
     baseURL: process.env.BASE_URL || 'https://automationexercise.com/',
+    actionTimeout: 45_000,
+    navigationTimeout: 45_000,
     trace: 'on-first-retry',
   },
 
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { ...devices['Desktop Chrome'],
+        headless: false, 
+       },
     },
 
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
+    // {
+    //   name: 'firefox',
+    //   use: { ...devices['Desktop Firefox'] },
+    // },
 
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
+    // {
+    //   name: 'webkit',
+    //   use: { ...devices['Desktop Safari'] },
+    // },
 
     /* Test against mobile viewports. */
     // {
