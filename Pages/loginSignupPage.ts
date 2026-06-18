@@ -6,13 +6,19 @@ export class LoginSignupPage extends BasePage {
         super(page);
     }
 
-    // Locators
+    // Signup Locators
     readonly newUserSignupHeading = this.page.getByRole('heading', { name: 'New User Signup!' });
     readonly signupNameInput = this.page.getByRole('textbox', { name: 'Name' });
     readonly signupEmailInput = this.page.locator('form').filter({ hasText: 'Signup' }).getByPlaceholder('Email Address');
     readonly signupButton = this.page.getByRole('button', { name: 'Signup' });
 
-    // Actions
+    // Login Locators
+    readonly loginHeading = this.page.getByRole('heading', { name: 'Login to your account' });
+    readonly loginEmailInput = this.page.locator('form').filter({ hasText: 'Login' }).getByPlaceholder('Email Address');
+    readonly loginPasswordInput = this.page.getByRole('textbox', { name: 'Password' });
+    readonly loginButton = this.page.getByRole('button', { name: 'Login' });
+
+    // Signup Actions
     async verifyLoginSignupPageIsVisible() {
         await expect(this.newUserSignupHeading).toBeVisible();
     }
@@ -29,5 +35,26 @@ export class LoginSignupPage extends BasePage {
     async signupWithDetails(name: string, email: string) {
         await this.fillSignupForm(name, email);
         await this.clickSignupButton();
+    }
+
+    // Login Actions
+    async verifyLoginPageIsVisible() {
+        await expect(this.loginHeading).toBeVisible();
+    }
+
+    async fillLoginForm(email: string, password: string) {
+        await this.loginEmailInput.click();
+        await this.loginEmailInput.fill(email);
+        await this.loginPasswordInput.click();
+        await this.loginPasswordInput.fill(password);
+    }
+
+    async clickLoginButton() {
+        await this.loginButton.click();
+    }
+
+    async loginWithCredentials(email: string, password: string) {
+        await this.fillLoginForm(email, password);
+        await this.clickLoginButton();
     }
 }
