@@ -4,6 +4,9 @@ import { HomePage } from '../../../Pages/homePage';
 import { LoginSignupPage } from '../../../Pages/loginSignupPage';
 import { SignupFormPage } from '../../../Pages/signupFormPage';
 import { AccountPage } from '../../../Pages/accountPage';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 test.describe('Registration Feature', ()=>{
     test('User can register with valid details',async({page, baseURL})=>{
@@ -72,6 +75,40 @@ test.describe('Registration Feature', ()=>{
         // Step 11: Click continue after account deletion
         await accountPage.clickContinue();
 
+    })
+
+    test('TC-AUTH-005: Register with Existing Email', async({page, baseURL})=>{
+        // Initialize page objects
+        const homePage = new HomePage(page);
+        const loginSignupPage = new LoginSignupPage(page);
+
+        // Test data - using faker for name and env file for email
+        const firstName = faker.person.firstName();
+        const lastName = faker.person.lastName();
+        const fullName = `${firstName} ${lastName}`;
+        const existingEmail = process.env.EMAIL!; // Email from .env which is already registered
+
+        // Step 1: Launch browser (implicit with baseURL)
+        // Step 2: Navigate to url http://automationexercise.com/
+        await homePage.navigateToHome();
+
+        // Step 3: Verify that home page is visible successfully
+        await homePage.verifyHomePageIsVisible();
+
+        // Step 4: Click on 'Signup / Login' button
+        await homePage.clickLoginLink();
+
+        // Step 5: Verify 'New User Signup!' is visible
+        await loginSignupPage.verifyLoginSignupPageIsVisible();
+
+        // Step 6: Enter name and already registered email address
+        await loginSignupPage.fillSignupForm(fullName, existingEmail);
+
+        // Step 7: Click 'Signup' button
+        await loginSignupPage.clickSignupButton();
+
+        // Step 8: Verify error 'Email Address already exist!' is visible
+        await loginSignupPage.verifySignupErrorMessage();
     })
 
 })

@@ -19,6 +19,9 @@ export class LoginSignupPage extends BasePage {
     readonly loginButton = this.page.getByRole('button', { name: 'Login' });
     readonly loginErrorMessage = this.page.locator('#form').filter({ hasText: 'Your email or password is incorrect!' });
 
+    // Error Messages
+    readonly signupErrorMessage = this.page.locator('form').filter({ hasText: 'Signup' }).getByText('Email Address already exist!');
+
     // Signup Actions
     async verifyLoginSignupPageIsVisible() {
         await expect(this.newUserSignupHeading).toBeVisible();
@@ -59,5 +62,9 @@ export class LoginSignupPage extends BasePage {
 
     async verifyLoginErrorMessage() {
         await expect(this.loginErrorMessage).toBeVisible();
+    }
+
+    async verifySignupErrorMessage() {
+        await expect(this.signupErrorMessage).toBeVisible();
     }
 }
