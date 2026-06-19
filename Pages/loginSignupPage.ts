@@ -17,6 +17,7 @@ export class LoginSignupPage extends BasePage {
     readonly loginEmailInput = this.page.locator('form').filter({ hasText: 'Login' }).getByPlaceholder('Email Address');
     readonly loginPasswordInput = this.page.getByRole('textbox', { name: 'Password' });
     readonly loginButton = this.page.getByRole('button', { name: 'Login' });
+    readonly loginErrorMessage = this.page.locator('#form').filter({ hasText: 'Your email or password is incorrect!' });
 
     // Signup Actions
     async verifyLoginSignupPageIsVisible() {
@@ -43,9 +44,7 @@ export class LoginSignupPage extends BasePage {
     }
 
     async fillLoginForm(email: string, password: string) {
-        await this.loginEmailInput.click();
         await this.loginEmailInput.fill(email);
-        await this.loginPasswordInput.click();
         await this.loginPasswordInput.fill(password);
     }
 
@@ -56,5 +55,9 @@ export class LoginSignupPage extends BasePage {
     async loginWithCredentials(email: string, password: string) {
         await this.fillLoginForm(email, password);
         await this.clickLoginButton();
+    }
+
+    async verifyLoginErrorMessage() {
+        await expect(this.loginErrorMessage).toBeVisible();
     }
 }
