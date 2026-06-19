@@ -12,6 +12,7 @@ export class AccountPage extends BasePage {
     readonly loggedInAsText = (name: string) => this.page.getByText(`Logged in as ${name}`);
     readonly deleteAccountLink = this.page.getByRole('link', { name: ' Delete Account' });
     readonly accountDeletedMessage = this.page.getByText('Account Deleted!');
+    readonly logoutLink = this.page.getByRole('link', { name: ' Logout' });
 
     // Actions
     async verifyAccountCreated() {
@@ -32,5 +33,9 @@ export class AccountPage extends BasePage {
 
     async verifyAccountDeleted() {
         await expect(this.accountDeletedMessage).toBeVisible();
+    }
+
+    async logout() {
+       await this.logoutLink.click();
     }
 }
