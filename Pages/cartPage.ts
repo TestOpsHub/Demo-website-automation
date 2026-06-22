@@ -34,4 +34,27 @@ export class CartPage extends BasePage {
         await this.subscribeWithEmail(email);
         await this.verifySubscriptionSuccess();
     }
+
+    // Product verification methods
+    async verifyProductIsInCart(productId: number) {
+        await expect(this.page.locator(`#product-${productId}`)).toBeVisible();
+    }
+
+    async verifyProductNameInCart(productName: string) {
+        await expect(this.page.getByRole('link', { name: productName })).toBeVisible();
+    }
+
+    async verifyProductDetails(productId: number, price: string, quantity: string, total: string) {
+        const productLocator = this.page.locator(`#product-${productId}`);
+        await expect(productLocator.locator('.cart_price')).toContainText(price);
+        await expect(productLocator.locator('.cart_quantity')).toContainText(quantity);
+        await expect(productLocator.locator('.cart_total')).toContainText(total);
+    }
+
+    async verifyMultipleProductsInCart(products: Array<{ id: number; price: string; quantity: string; total: string }>) {
+        for (const product of products) {
+            await this.verifyProductIsInCart(product.id);
+            await this.verifyProductDetails(product.id, product.price, product.quantity, product.total);
+        }
+    }
 }
