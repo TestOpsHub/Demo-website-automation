@@ -57,4 +57,8 @@ export class CartPage extends BasePage {
             await this.verifyProductDetails(product.id, product.price, product.quantity, product.total);
         }
     }
+
+    async verifyQuantityInCart(quantity: string) {
+        await expect(this.page.getByRole('button', { name: quantity })).toBeVisible();
+    }
 }
