@@ -10,7 +10,12 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : 1,
-  reporter: 'html',
+  reporter:[ 
+    ['list'],
+    ['html'],
+    ['allure-playwright']
+
+  ],
  
   use: {
     baseURL: process.env.BASE_URL || 'https://automationexercise.com/',
