@@ -11,6 +11,9 @@ export class CartPage extends BasePage {
     readonly emailInput = this.page.getByRole('textbox', { name: 'Your email address' });
     readonly subscribeButton = this.page.locator('#subscribe');
     readonly successMessage = this.page.getByText('You have been successfully subscribed!');
+    readonly cartHeading = this.page.getByText('Shopping Cart');
+    readonly emptyCartMessage = this.page.getByText('Cart is empty!');
+    readonly removeProductButton = this.page.locator('.cart_quantity_delete');
 
     // Actions
     async navigateToCart() {
@@ -19,6 +22,18 @@ export class CartPage extends BasePage {
 
     async verifySubscriptionSectionIsVisible() {
         await expect(this.subscriptionHeading).toBeVisible();
+    }
+
+    async verifyCartPageIsVisible() {
+        await expect(this.cartHeading).toBeVisible();
+    }
+
+    async removeProductFromCart() {
+        await this.removeProductButton.click();
+    }
+
+    async verifyCartIsEmpty() {
+        await expect(this.emptyCartMessage).toBeVisible();
     }
 
     async subscribeWithEmail(email: string) {
