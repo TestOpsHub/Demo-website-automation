@@ -17,7 +17,7 @@ test.describe('Cart Feature', () => {
     await homePage.verifyHomePageIsVisible();
   });
 
-  test('removes a product from the cart using the page object model', async () => {
+  test('Verify product can be removed from the cart', async () => {
     await productsPage.navigateToProducts();
     await productsPage.addProductToCart(3);
     await productsPage.viewCart();
