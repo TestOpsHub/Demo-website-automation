@@ -10,8 +10,8 @@ node_modules/
 /playwright/.auth/
 
 # Allure artifacts
-/allure-results/
-/allure-report/
+allure-results/
+allure-report/
 
 # Environment files
 .env
