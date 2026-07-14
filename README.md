@@ -78,6 +78,10 @@ npx allure open allure-report
 ```
 
 If Allure is not installed globally, use the `allure-commandline` package already included in the project dependencies.
+<img width="1907" height="939" alt="image" src="https://github.com/user-attachments/assets/ba47ffda-120a-4062-ac22-770adf7c38c2" />
+<img width="1909" height="937" alt="image" src="https://github.com/user-attachments/assets/cefab84e-027f-4434-9f03-6ffee37762a4" />
+
+
 
 ## Project structure
 
